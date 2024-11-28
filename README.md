@@ -1,7 +1,7 @@
 # 💸 Spring 통화 환전 과제 💸
 ### [💻 JPA 통화 환전 과제 작성 내용 바로가기 ](https://github.com/chews26/user_currency/tree/main/src/main/java/com/sparta/currency_user)
 ### [📓 JPA 통화 환전 과제 작성 노션 바로가기](https://shinelee26.notion.site/CH-4-14b86ea33f94800aa936cb26db10a000?pvs=4)
-### [🏠 JPA 통화 환전 과제 작성 블로그 바로가기]()
+### [🏠 JPA 통화 환전 과제 작성 블로그 바로가기](https://shinelee26.tistory.com/tag/spirng%20%ED%86%B5%ED%99%94%ED%99%98%EC%A0%84)
 #### [JPA 통화 환전 과제 PostMan 작성 문서](https://documenter.getpostman.com/view/39348151/2sAYBXBWYk) 
 #### [JPA 통화 환전 과제 Swagger](http://localhost:8080/swagger-ui/index.html#/)
 
