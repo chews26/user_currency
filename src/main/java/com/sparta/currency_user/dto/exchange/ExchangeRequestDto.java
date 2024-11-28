@@ -1,4 +1,4 @@
-package com.sparta.currency_user.dto;
+package com.sparta.currency_user.dto.exchange;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sparta.currency_user.entity.Currency;
@@ -27,9 +27,9 @@ public class ExchangeRequestDto {
 
     public Exchange toEntity(User user, Currency currency) {
         return new Exchange(
-                this.amount_in_krw,
-                currency,
-                user
+            user,
+            this.amount_in_krw,
+            currency
         );
     }
 }

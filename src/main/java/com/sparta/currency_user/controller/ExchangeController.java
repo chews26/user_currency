@@ -1,8 +1,7 @@
 package com.sparta.currency_user.controller;
 
-import com.sparta.currency_user.dto.ExchangeRequestDto;
-import com.sparta.currency_user.dto.ExchangeResponseDto;
-import com.sparta.currency_user.entity.Exchange;
+import com.sparta.currency_user.dto.exchange.ExchangeRequestDto;
+import com.sparta.currency_user.dto.exchange.ExchangeResponseDto;
 import com.sparta.currency_user.service.ExchangeService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +24,7 @@ public class ExchangeController {
 
     private final ExchangeService exchangeService;
 
-    // 환전
+    // 환전 요청 및 처리
     @PostMapping
     public ResponseEntity<ExchangeResponseDto> exchange(
             @Valid @RequestBody ExchangeRequestDto exchangeRequestDto
@@ -47,7 +46,7 @@ public class ExchangeController {
             @PathVariable Long id,
             @Valid @RequestBody ExchangeRequestDto exchangeRequestDto
     ) {
-        ExchangeResponseDto exchangeResponseDto = exchangeService.cancelExchange();
+        ExchangeResponseDto exchangeResponseDto = exchangeService.cancelExchange(id);
         return new ResponseEntity<>(exchangeResponseDto, HttpStatus.OK);
     }
 }

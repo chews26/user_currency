@@ -1,14 +1,15 @@
 package com.sparta.currency_user.entity;
 
+import com.sparta.currency_user.enums.ExchangeStatus;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 
 import java.math.BigDecimal;
@@ -34,20 +35,28 @@ public class Exchange extends BaseEntity {
 
     private BigDecimal amount_after_exchange;
 
-    private String status;
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private ExchangeStatus status;
 
-    protected Exchange() {}
+    protected Exchange() {
+    }
 
     // DTO 변환용 생성자
-    public Exchange(BigDecimal amount_in_krw, Currency currency, User user) {
+    public Exchange(User user, BigDecimal amount_in_krw, Currency currency) {
+        this.user = user;
         this.amount_in_krw = amount_in_krw;
         this.currency = currency;
-        this.user = user;
-        this.status = "normal"; // 기본 상태 설정
+        this.status = ExchangeStatus.NORMAL; // 기본 상태 설정
     }
 
     // 결과 값 저장용 Setter 메서드
     public void setAmountAfterExchange(BigDecimal amountAfterExchange) {
         this.amount_after_exchange = amountAfterExchange;
+    }
+
+    // 상태 변경 메서드 추가
+    public void setStatus(ExchangeStatus status) {
+        this.status = status;
     }
 }
