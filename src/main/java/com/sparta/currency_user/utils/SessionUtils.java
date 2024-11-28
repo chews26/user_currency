@@ -12,6 +12,14 @@ import org.springframework.web.server.ResponseStatusException;
 public class SessionUtils {
     private final HttpSession session;
 
+    // 이름 가져오기
+    public String getLoginUserName() {
+        String name = (String) session.getAttribute("name");
+        if (name == null) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "로그인이 필요합니다.");
+        }
+        return name;
+    }
 
     // 이메일 가져오기
     public String getLoginUserEmail() {

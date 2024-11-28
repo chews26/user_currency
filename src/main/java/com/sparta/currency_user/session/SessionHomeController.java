@@ -1,7 +1,7 @@
 package com.sparta.currency_user.session;
 
 import com.sparta.currency_user.common.Const;
-import com.sparta.currency_user.dto.UserRequestDto;
+import com.sparta.currency_user.dto.user.UserRequestDto;
 import com.sparta.currency_user.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +16,7 @@ public class SessionHomeController {
 
     private final UserService userService;
 
-    @GetMapping({"/","/schedule"})
+    @GetMapping({"/home"})
     public String home(
             @Valid
             @SessionAttribute(name = Const.LOGIN_USER, required = false) UserRequestDto loginUser,
