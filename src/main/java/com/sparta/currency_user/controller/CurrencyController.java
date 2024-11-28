@@ -2,6 +2,7 @@ package com.sparta.currency_user.controller;
 
 import com.sparta.currency_user.dto.currency.CurrencyRequestDto;
 import com.sparta.currency_user.dto.currency.CurrencyResponseDto;
+import com.sparta.currency_user.exception.CustomException;
 import com.sparta.currency_user.service.CurrencyService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -18,13 +19,15 @@ public class CurrencyController {
 
     // 모든 통화 조회
     @GetMapping
-    public ResponseEntity<List<CurrencyResponseDto>> findCurrencies() {
+    public ResponseEntity<List<CurrencyResponseDto>> findCurrencies(
+    ) throws CustomException  {
         return ResponseEntity.ok().body(currencyService.findAll());
     }
 
     // 특정 통화 조회
     @GetMapping("/{id}")
-    public ResponseEntity<CurrencyResponseDto> findCurrency(@PathVariable Long id) {
+    public ResponseEntity<CurrencyResponseDto> findCurrency(@PathVariable Long id
+    ) throws CustomException {
         return ResponseEntity.ok().body(currencyService.findById(id));
     }
 
@@ -32,7 +35,8 @@ public class CurrencyController {
     @PostMapping
     public ResponseEntity<CurrencyResponseDto> createCurrency(
             @Valid
-            @RequestBody CurrencyRequestDto currencyRequestDto) {
+            @RequestBody CurrencyRequestDto currencyRequestDto
+    ) throws CustomException  {
         return ResponseEntity.ok().body(currencyService.save(currencyRequestDto));
     }
 }

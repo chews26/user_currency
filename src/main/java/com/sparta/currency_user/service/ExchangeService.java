@@ -6,6 +6,8 @@ import com.sparta.currency_user.entity.Currency;
 import com.sparta.currency_user.entity.Exchange;
 import com.sparta.currency_user.entity.User;
 import com.sparta.currency_user.enums.ExchangeStatus;
+import com.sparta.currency_user.exception.CustomErrorCode;
+import com.sparta.currency_user.exception.CustomException;
 import com.sparta.currency_user.repository.CurrencyRepository;
 import com.sparta.currency_user.repository.ExchangeRepository;
 import com.sparta.currency_user.repository.UserRepository;
@@ -29,13 +31,18 @@ public class ExchangeService {
 
     // 환전 요청 및 처리
     @Transactional
-    public ExchangeResponseDto exchange(ExchangeRequestDto exchangeRequestDto) {
+    public ExchangeResponseDto exchange(ExchangeRequestDto exchangeRequestDto) throws CustomException {
+
         // 로그인된 사용자 이메일로 조회
         String email = sessionUtils.getLoginUserEmail();
         User findUser = userRepository.findByEmailOrElseThrow(email);
-        // 환율 정보 조회
+        // 예외 처리
+        if (email == null || email.isEmpty()) {
+            throw new CustomException(CustomErrorCode.POST_FORBIDDEN);
+        }
+        // 환율 정보 조회 및 예외처리
         Currency currency = currencyRepository.findByCurrencyName(exchangeRequestDto.getCurrency_name())
-                .orElseThrow(() -> new IllegalArgumentException("해당 통화를 찾을 수 없습니다."));
+                .orElseThrow(() -> new CustomException(CustomErrorCode.CURRENCY_INCORRECT));
         // 환전 계산
         BigDecimal amountInKrw = exchangeRequestDto.getAmount_in_krw();
         BigDecimal exchangeRate = currency.getExchangeRate();
