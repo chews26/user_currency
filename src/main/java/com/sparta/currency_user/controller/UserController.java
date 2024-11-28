@@ -1,5 +1,6 @@
 package com.sparta.currency_user.controller;
 
+import com.sparta.currency_user.common.Const;
 import com.sparta.currency_user.dto.user.LoginRequestDto;
 import com.sparta.currency_user.dto.user.UserRequestDto;
 import com.sparta.currency_user.dto.user.UserResponseDto;
@@ -48,8 +49,18 @@ public class UserController {
             HttpServletRequest request) {
         UserResponseDto userResponse = userService.login(loginRequestDto.getEmail(), loginRequestDto.getPassword());
         HttpSession session = request.getSession(true);
-        session.setAttribute("sessionKey", loginRequestDto.getEmail());
+        session.setAttribute(Const.LOGIN_USER, loginRequestDto.getEmail());
         return ResponseEntity.ok(userResponse);
+    }
+
+    // 로그아웃
+    @PostMapping("/logout")
+    public ResponseEntity<String> logout(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
+        return ResponseEntity.ok("로그아웃 완료");
     }
 
     // 회원 탈퇴

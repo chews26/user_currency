@@ -30,8 +30,9 @@ public class ExchangeService {
     // 환전 요청 및 처리
     @Transactional
     public ExchangeResponseDto exchange(ExchangeRequestDto exchangeRequestDto) {
-        //  로그인된 사용자 이름 가져오기
-        User findName = userRepository.findByNameOrElseThrow(sessionUtils.getLoginUserName());
+        // 로그인된 사용자 이메일로 조회
+        String email = sessionUtils.getLoginUserEmail();
+        User findUser = userRepository.findByEmailOrElseThrow(email);
         // 환율 정보 조회
         Currency currency = currencyRepository.findByCurrencyName(exchangeRequestDto.getCurrency_name())
                 .orElseThrow(() -> new IllegalArgumentException("해당 통화를 찾을 수 없습니다."));
@@ -40,7 +41,7 @@ public class ExchangeService {
         BigDecimal exchangeRate = currency.getExchangeRate();
         BigDecimal amountAfterExchange = amountInKrw.multiply(exchangeRate);
         // Exchange 엔티티 생성
-        Exchange exchange = new Exchange(findName,exchangeRequestDto.getAmount_in_krw(), currency);
+        Exchange exchange = new Exchange(findUser,exchangeRequestDto.getAmount_in_krw(), currency);
         exchange.setAmountAfterExchange(amountAfterExchange);
         // 데이터 저장
         Exchange savedExchange = exchangeRepository.save(exchange);

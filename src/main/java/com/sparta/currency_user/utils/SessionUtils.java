@@ -1,5 +1,6 @@
 package com.sparta.currency_user.utils;
 
+import com.sparta.currency_user.common.Const;
 import com.sparta.currency_user.entity.User;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +15,7 @@ public class SessionUtils {
 
     // 이름 가져오기
     public String getLoginUserName() {
-        String name = (String) session.getAttribute("name");
+        String name = (String) session.getAttribute(Const.LOGIN_USER);
         if (name == null) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "로그인이 필요합니다.");
         }
@@ -23,7 +24,7 @@ public class SessionUtils {
 
     // 이메일 가져오기
     public String getLoginUserEmail() {
-        String email = (String)session.getAttribute("sessionKey");
+        String email = (String)session.getAttribute(Const.LOGIN_USER);
 
         if (email == null) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "로그인이 필요합니다.");
