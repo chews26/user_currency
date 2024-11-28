@@ -1,4 +1,4 @@
-package com.sparta.currency_user.dto;
+package com.sparta.currency_user.dto.currency;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sparta.currency_user.entity.Currency;
