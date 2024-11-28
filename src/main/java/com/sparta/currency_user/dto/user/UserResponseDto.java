@@ -1,13 +1,15 @@
-package com.sparta.currency_user.dto;
+package com.sparta.currency_user.dto.user;
 
 import com.sparta.currency_user.entity.User;
 import lombok.Getter;
 
 @Getter
 public class UserResponseDto {
+
     private Long id;
 
     private String name;
+
     private String email;
 
     public UserResponseDto(User user) {
