@@ -1,5 +1,6 @@
 package com.sparta.currency_user.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -10,13 +11,17 @@ import java.math.BigDecimal;
 
 @Entity
 @Getter
-public class Currency {
+public class Currency extends BaseEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String currencyName;
+
+    @Column(scale = 5)
     private BigDecimal exchangeRate;
+
     private String symbol;
 
     public Currency(String currencyName, BigDecimal exchangeRate, String symbol) {

@@ -16,6 +16,8 @@ public class CurrencyService {
 
     private final CurrencyRepository currencyRepository;
 
+    // 특정 통화 조회
+
     public CurrencyResponseDto findById(Long id) {
         return new CurrencyResponseDto(findCurrencyById(id));
     }
@@ -24,6 +26,7 @@ public class CurrencyService {
         return currencyRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("통화를 찾을 수 없습니다."));
     }
 
+    // 모든 통화 조회
     public List<CurrencyResponseDto> findAll() {
         return currencyRepository.findAll().stream().map(CurrencyResponseDto::toDto).toList();
     }
