@@ -57,9 +57,9 @@ public class ExchangeService {
                 .collect(Collectors.toList());    }
 
     // 환전 요청 상태 취소
-    public ExchangeResponseDto cancelExchange(Long exchangeId) {
+    public ExchangeResponseDto updateStatus(Long id, String exchangeId) {
         // 환전 요청 조회
-        Exchange exchange = exchangeRepository.findById(exchangeId)
+        Exchange exchange = exchangeRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("환전 요청을 찾을 수 없습니다: " + exchangeId));
         // 상태 변경
         exchange.setStatus(ExchangeStatus.CANCELLED);

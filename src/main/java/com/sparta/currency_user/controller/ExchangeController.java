@@ -2,6 +2,7 @@ package com.sparta.currency_user.controller;
 
 import com.sparta.currency_user.dto.exchange.ExchangeRequestDto;
 import com.sparta.currency_user.dto.exchange.ExchangeResponseDto;
+import com.sparta.currency_user.dto.exchange.ExchangeStatusUpdateDto;
 import com.sparta.currency_user.service.ExchangeService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -44,9 +45,9 @@ public class ExchangeController {
     @PatchMapping("/{id}")
     public ResponseEntity<ExchangeResponseDto> patchExchange(
             @PathVariable Long id,
-            @Valid @RequestBody ExchangeRequestDto exchangeRequestDto
+            @Valid @RequestBody ExchangeStatusUpdateDto exchangeStatusUpdateDto
     ) {
-        ExchangeResponseDto exchangeResponseDto = exchangeService.cancelExchange(id);
+        ExchangeResponseDto exchangeResponseDto = exchangeService.updateStatus(id, exchangeStatusUpdateDto.getStatus());
         return new ResponseEntity<>(exchangeResponseDto, HttpStatus.OK);
     }
 }
