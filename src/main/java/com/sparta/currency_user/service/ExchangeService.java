@@ -2,6 +2,7 @@ package com.sparta.currency_user.service;
 
 import com.sparta.currency_user.dto.exchange.ExchangeRequestDto;
 import com.sparta.currency_user.dto.exchange.ExchangeResponseDto;
+import com.sparta.currency_user.dto.exchange.ExchangeSummaryDto;
 import com.sparta.currency_user.entity.Currency;
 import com.sparta.currency_user.entity.Exchange;
 import com.sparta.currency_user.entity.User;
@@ -62,6 +63,12 @@ public class ExchangeService {
         return exchangeRepository.findAll().stream()
                 .map(ExchangeResponseDto::toEntity)
                 .collect(Collectors.toList());    }
+
+    // 모든 환전 요청을 그룹화하여 조회
+    @Transactional(readOnly = true)
+    public List<ExchangeSummaryDto> getExchangeSummaries() {
+        return exchangeRepository.findExchangeSummaries();
+    }
 
     // 환전 요청 상태 취소
     public ExchangeResponseDto updateStatus(Long id, String exchangeId) {

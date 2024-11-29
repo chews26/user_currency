@@ -3,6 +3,7 @@ package com.sparta.currency_user.controller;
 import com.sparta.currency_user.dto.exchange.ExchangeRequestDto;
 import com.sparta.currency_user.dto.exchange.ExchangeResponseDto;
 import com.sparta.currency_user.dto.exchange.ExchangeStatusUpdateDto;
+import com.sparta.currency_user.dto.exchange.ExchangeSummaryDto;
 import com.sparta.currency_user.exception.CustomException;
 import com.sparta.currency_user.service.ExchangeService;
 import jakarta.validation.Valid;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -42,6 +44,13 @@ public class ExchangeController {
         List<ExchangeResponseDto> exchangeResponseDtoList = exchangeService.getAllExchanges();
         return new ResponseEntity<>(exchangeResponseDtoList, HttpStatus.OK);
     }
+
+    // 모든 환전 요청을 그룹화하여 조회
+    @GetMapping("/summary")
+    public List<ExchangeSummaryDto> getExchangeSummaries() {
+        return exchangeService.getExchangeSummaries();
+    }
+
 
     // 환전 요청 상태 취소
     @PatchMapping("/{id}")
